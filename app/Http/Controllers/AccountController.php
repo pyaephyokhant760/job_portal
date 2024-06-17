@@ -16,39 +16,15 @@ class AccountController extends Controller
         return view('auth.register');
     }
 
-    // // getRegisterPage
-    // public function getRegisterPage(Request $request){
-    //     // dd($request->toArray());
-    //     $this->validatorCheack($request);
-    //     $data = $this->getdata($request);
-    //     $user = User::create($data);
-
-    //     if($user) {
-    //         return redirect()->route('accountLoginPage');
-    //     }else {
-    //         return back();
-    //     }
-    // }
 
     // loginPage
     public function loginPage() {
         return view('auth.login');
     }
 
-    // // getLoginPage
-    // public function getLoginPage(Request $request) {
-    //     $this->check($request);
-    //     if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-    //         return redirect()->route('profilePage');
-    //     }else {
-    //         return back();
-    //     }
-    // }
 
     // profilePage
     public function profilePage() {
-        $user = User::get();
-        // dd($user->toArray());
         return view('front.account.account');
     }
 
@@ -81,13 +57,26 @@ class AccountController extends Controller
         return back();
     }
 
-    // // logoutPage
-    // public function logoutPage() {
-    //     Auth::logout();
-    //     return redirect()->route('accountLoginPage');
-    // }
+    // getPasswordPage
+    public function getPasswordPage(Request $request) {
+        $this->validatorCheck($request);
+        $user = User::select('password')->where('id',Auth::user()->id)->first();
+        $dbPassword = $user->password;
 
-    // getProfilePage
+
+
+        if (Hash::check($request->oldPassword, $dbPassword)) {
+            $data = [
+                'password' => Hash::make($request->newPassword),
+            ];
+            User::where('id',Auth::user()->id)->update($data);
+            return redirect()->route('accountLoginPage');
+        }
+        return back()->with(['notMatch' => 'The Old Password Not Match']);
+
+    }
+
+
 
 
 
@@ -148,6 +137,14 @@ class AccountController extends Controller
     private function photoValida($request) {
         $validate = Validator::make($request->all(),[
             'image' => 'mimes:jpg,bmp,png',
+        ])->validate();
+    }
+
+    private function validatorCheck($request) {
+        Validator::make($request->all(),[
+        'oldPassword' => 'required|min:6',
+        'newPassword' => 'required|min:6',
+        'comfirmPassword' => 'required|min:6|same:newPassword',
         ])->validate();
     }
 }

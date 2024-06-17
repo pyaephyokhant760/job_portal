@@ -42,6 +42,33 @@ class SaveJobController extends Controller
         }
     }
 
+    // saveJob
+    public function saveJob() {
+        $apps = Detail::select('*','job_types.name as job_name','details.id as detail_id','save_jobs.id as save_id')
+            ->rightJoin('save_jobs','details.id','save_jobs.job_id')
+            ->where('save_jobs.user_id',Auth::user()->id)
+            ->rightJoin('job_types','details.job_type_id','job_types.id')
+            ->paginate(5);
+        return view('front.job.save.save_job',compact('apps'));
+    }
+
+    // saveJobView
+    public function saveJobView($id) {
+        $data = Detail::select('details.*','categories.name as category_name','job_types.name as job_name')
+                ->join('categories','details.category_id','categories.id')
+                ->join('job_types','details.job_type_id','job_types.id')
+                ->where('details.id',$id)
+                ->first();
+        return view('front.job.save.view',compact('data'));
+    }
+
+    // saveJobDelete
+    public function saveJobDelete($id) {
+        $data = SaveJob::where('id',$id)->delete();
+        return back();
+    }
+
+
 
 
 

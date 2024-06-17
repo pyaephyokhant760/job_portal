@@ -41,7 +41,7 @@
                                 <a href="{{ route('appJobsPage')}}">Jobs Applied</a>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <a href="saved-jobs.html">Saved Jobs</a>
+                                <a href="{{ route('saveJob')}}">Saved Jobs</a>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                 <form action="{{ route('logout')}}" method="post">
@@ -99,22 +99,38 @@
 
                 <div class="card border-0 shadow mb-4">
                     <div class="card-body p-4">
-                        <h3 class="fs-4 mb-1">Change Password</h3>
-                        <div class="mb-4">
-                            <label for="" class="mb-2">Old Password*</label>
-                            <input type="password" placeholder="Old Password" class="form-control">
-                        </div>
-                        <div class="mb-4">
-                            <label for="" class="mb-2">New Password*</label>
-                            <input type="password" placeholder="New Password" class="form-control">
-                        </div>
-                        <div class="mb-4">
-                            <label for="" class="mb-2">Confirm Password*</label>
-                            <input type="password" placeholder="Confirm Password" class="form-control">
-                        </div>
-                    </div>
-                    <div class="card-footer  p-4">
-                        <button type="button" class="btn btn-primary">Update</button>
+                        <form action="{{ route('getPasswordPage')}}" method="post">
+                            @csrf
+                            <h3 class="fs-4 mb-1">Change Password</h3>
+                            <div class="mb-4">
+                                <label for="" class="mb-2">Old Password*</label>
+                                <input id="cc-pament" name="oldPassword" type="password" class="form-control @if (session('notMatch')) is-invalid @endif @error('oldPassword') is-invalid @enderror" aria-required="true" aria-invalid="false" placeholder="Old Password">
+                                @error('oldPassword')
+                                    <small class="invalid-feedback">{{ $message }}</small>
+                                @enderror
+                                @if (session('notMatch'))
+                                    <small class="invalid-feedback">{{ session('notMatch') }}</small>
+                                @endif
+                            </div>
+                            <div class="mb-4">
+                                <label for="" class="mb-2">New Password*</label>
+                                <input id="cc-pament" name="newPassword" type="password" class="form-control @error('newPassword') is-invalid @enderror" aria-required="true" aria-invalid="false" placeholder="New Password">
+                                @error('newPassword')
+                                    <small class="invalid-feedback">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-4">
+                                <label for="" class="mb-2">Confirm Password*</label>
+                                <input type="password" placeholder="Confirm Password" class="form-control" name="comfirmPassword">
+                                @error('comfirmPassword')
+                                    <small class="invalid-feedback">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            </div>
+                            <div class="card-footer  p-4">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

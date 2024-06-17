@@ -1,7 +1,6 @@
 @extends('front.layout.app')
 
 @section('main')
-
 <section class="section-5 bg-2">
     <div class="container py-5">
         <div class="row">
@@ -92,8 +91,8 @@
                                                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                                     </a>
                                                     <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><a class="dropdown-item" href="{{ route('appView',$app->job_id)}}"> <i class="fa fa-eye" aria-hidden="true"></i> View</a></li>
-                                                        <li><a class="dropdown-item delete" href="{{ route('appDelete',$app->job_app_id)}}"><i class="fa fa-trash" aria-hidden="true"></i> Remove</a></li>
+                                                        <li><a class="dropdown-item" href="{{ route('saveJobView',$app->detail_id)}}"> <i class="fa fa-eye" aria-hidden="true"></i> View</a></li>
+                                                        <li><a class="dropdown-item delete" href="{{ route('saveJobDelete',$app->save_id)}}"><i class="fa fa-trash" aria-hidden="true"></i> Remove</a></li>
                                                     </ul>
                                                 </div>
                                             </td>
@@ -118,7 +117,7 @@
         $(".delete").click(function(){
             $.ajax({
                 type : 'get',
-                url : 'http://127.0.0.1:8000/app/delete/{id}',
+                url : 'http://127.0.0.1:8000/saveJob/delete/{id}',
                 dataType : 'json',
             });
             location.reload();
@@ -126,3 +125,5 @@
     });
 </script>
 @endsection
+
+

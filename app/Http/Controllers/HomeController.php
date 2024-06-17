@@ -23,3 +23,4 @@ class HomeController extends Controller
         return view('front.home',compact('categories','featureJobs','lastestJobs','categories'));
     }
 }
+//

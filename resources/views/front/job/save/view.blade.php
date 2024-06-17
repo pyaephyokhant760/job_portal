@@ -40,11 +40,8 @@
                                 </div>
                             </div>
                             <div class="jobs_right">
-                                <div class="apply_now {{ ($count == 1) ? 'save-job' : ''}}">
-                                    @if (Auth::user())
-                                        <a class="heart_mark" href="#" id="save" type="button"> <i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                                    @endif
-
+                                <div class="apply_now">
+                                    <a class="heart_mark" href="#"> <i class="fa fa-heart-o" aria-hidden="true"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -78,12 +75,7 @@
                         @endif
                         <div class="border-bottom"></div>
                         <div class="pt-3 text-end">
-                            @if (Auth::user())
-                                <button class="btn btn-secondary" type="button" id="save">Save</button>
-                            @else
-                                <button class="btn btn-secondary" type="button" disabled>Save</button>
-                            @endif
-
+                            <a href="#" class="btn btn-secondary">Save</a>
                             @if (Auth::user())
                                 <button class="btn btn-secondary" type="button" id="apply">Apply</button>
                             @else
@@ -151,53 +143,3 @@
     </div>
 </section>
 @endsection
-
-@section('scriptSection')
-<script>
-$(document).ready(function(){
-        // apply
-        $("#apply").click(function(){
-            $source = {
-                'detail_id' : $('#job_id').val(),
-                'employer_id' : $('#user_id').val(),
-            };
-            $.ajax({
-                type : 'get',
-                url : 'http://127.0.0.1:8000/ajax/detail/page',
-                data :$source,
-                dataType : 'json',
-                success : function (respon) {
-                    if (respon.status == 'Success') {
-                        alert(respon.message);
-                    }
-                }
-            });
-        });
-
-        // save
-        $("#save").click(function(){
-            $source = {
-                'detail_id' : $('#job_id').val(),
-            };
-            $.ajax({
-                type : 'get',
-                url : 'http://127.0.0.1:8000/ajax/save/job',
-                data :$source,
-                dataType : 'json',
-                success : function (respon) {
-                    if (respon.status == 'False') {
-                        alert(respon.message);
-                        location.reload();
-                    }else if(respon.status == 'Success') {
-                        alert(respon.message);
-                        location.reload();
-                    }
-
-                }
-            });
-        });
-    });
-</script>
-@endsection
-
-

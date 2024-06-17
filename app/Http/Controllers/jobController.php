@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Detail;
 use App\Models\JobType;
+use App\Models\SaveJob;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -92,7 +93,11 @@ class jobController extends Controller
                 ->join('job_types','details.job_type_id','job_types.id')
                 ->where('details.id',$id)
                 ->first();
-        return view('front.job.detail',compact('data'));
+                $count = SaveJob::where([
+                    'user_id' => Auth::id(),
+                    'job_id' => $id,
+                ])->count();
+        return view('front.job.detail',compact('data','count'));
     }
 
 

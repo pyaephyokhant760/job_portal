@@ -16,6 +16,7 @@ use App\Http\Controllers\JobApplicationController;
 Route::middleware(['login_middleware'])->group(function () {
     Route::get('/register/page',[AccountController::class,'registerPage'])->name('accountRegisterPage');
     Route::get('/login/page',[AccountController::class,'loginPage'])->name('accountLoginPage');
+
 });
 
 Route::redirect('/', 'home');
@@ -43,6 +44,13 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
         Route::get('app/jobs',[ApplicationController::class,'appJobsPage'])->name('appJobsPage');
         Route::get('app/view/{id}',[ApplicationController::class,'appView'])->name('appView');
         Route::get('app/delete/{id}',[ApplicationController::class,'appDelete'])->name('appDelete');
+        Route::get('saveJob',[SaveJobController::class,'saveJob'])->name('saveJob');
+        Route::get('saveJob/view/{id}',[SaveJobController::class,'saveJobView'])->name('saveJobView');
+        Route::get('saveJob/delete/{id}',[SaveJobController::class,'saveJobDelete'])->name('saveJobDelete');
+    });
+
+    Route::prefix('password')->group(function() {
+        Route::post('get',[AccountController::class,'getPasswordPage'])->name('getPasswordPage');
     });
 
     Route::prefix('ajax')->group(function() {
