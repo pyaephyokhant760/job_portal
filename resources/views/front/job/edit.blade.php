@@ -142,22 +142,22 @@
 
                             <div class="mb-4">
                                 <label for="" class="mb-2">Description<span class="req">*</span></label>
-                                <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" cols="5" rows="5" placeholder="Description">{{ $detail->description }}</textarea>
+                                <textarea class="textarea form-control @error('description') is-invalid @enderror" name="description" id="description" cols="5" rows="5" placeholder="Description">{{ $detail->description }}</textarea>
                                 @error('description')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                             </div>
                             <div class="mb-4">
                                 <label for="" class="mb-2">Benefits</label>
-                                <textarea class="form-control" name="benefits" id="benefits" cols="5" rows="5" placeholder="Benefits" >{{ $detail->benefits }}</textarea>
+                                <textarea class="textarea" name="benefits" id="benefits" cols="5" rows="5" placeholder="Benefits" >{{ $detail->benefits }}</textarea>
                             </div>
                             <div class="mb-4">
                                 <label for="" class="mb-2">Responsibility</label>
-                                <textarea class="form-control" name="responsibility" id="responsibility" cols="5" rows="5" placeholder="Responsibility">{{ $detail->responsibility }}</textarea>
+                                <textarea class="textarea" name="responsibility" id="responsibility" cols="5" rows="5" placeholder="Responsibility">{{ $detail->responsibility }}</textarea>
                             </div>
                             <div class="mb-4">
                                 <label for="" class="mb-2">Qualifications</label>
-                                <textarea class="form-control" name="qualifications" id="qualifications" cols="5" rows="5" placeholder="Qualifications" >{{ $detail->qualifications }}</textarea>
+                                <textarea class="textarea" name="qualifications" id="qualifications" cols="5" rows="5" placeholder="Qualifications" >{{ $detail->qualifications }}</textarea>
                             </div>
 
 

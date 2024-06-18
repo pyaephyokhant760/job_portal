@@ -84,7 +84,7 @@
                                         <div class="card border-0 p-3 shadow mb-4" >
                                             <div class="card-body">
                                                 <h3 class="border-0 fs-5 pb-2 mb-0">{{ $Job->title }}</h3>
-                                                <p>{{ Str::words($Job->description, 5, '...')}}</p>
+                                                <p>{{ Str::words(strip_tags($Job->description), 5) }}</p>
                                                 <div class="bg-light p-3 border">
                                                     <p class="mb-0">
                                                         <span class="fw-bolder"><i class="fa fa-map-marker"></i></span>
@@ -120,12 +120,13 @@
 @endsection
 @section('scriptSection')
 <script>
-function truncateWords(str, numWords, append = '...') {
-    let words = str.split(' ');
-    if (words.length > numWords) {
-        return words.slice(0, numWords).join(' ') + append;
-    }
-    return str;
+function truncateWords(str, numWords) {
+    let words = str.split(" ");
+    return words.slice(0, numWords).join(" ") + (words.length > numWords ? "5" : "..");
+}
+function strip_tags(html) {
+    let doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.textContent || "";
 }
 $(document).ready(function(){
     $('#sort').change(function() {
@@ -145,7 +146,7 @@ $(document).ready(function(){
                                 <div class="card border-0 p-3 shadow mb-4" >
                                     <div class="card-body">
                                         <h3 class="border-0 fs-5 pb-2 mb-0">${response[$i].title}</h3>
-                                        <p>${truncateWords(response[$i].description, 5)}</p>
+                                        <p>${truncateWords(strip_tags(response[$i].description, 5))}</p>
                                         <div class="bg-light p-3 border">
                                             <p class="mb-0">
                                                 <span class="fw-bolder"><i class="fa fa-map-marker"></i></span>
@@ -189,7 +190,7 @@ $(document).ready(function(){
                                 <div class="card border-0 p-3 shadow mb-4" >
                                     <div class="card-body">
                                         <h3 class="border-0 fs-5 pb-2 mb-0">${response[$i].title}</h3>
-                                        <p>${truncateWords(response[$i].description, 5)}</p>
+                                        <p>${truncateWords(strip_tags(response[$i].description, 5))}</p>
                                         <div class="bg-light p-3 border">
                                             <p class="mb-0">
                                                 <span class="fw-bolder"><i class="fa fa-map-marker"></i></span>

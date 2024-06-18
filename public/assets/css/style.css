@@ -10024,3 +10024,6 @@ footer .nav-link {
     background-color: #00D363 !important;
     color: #fff !important;
 }
+.card ul li{
+    list-style: disc;
+}

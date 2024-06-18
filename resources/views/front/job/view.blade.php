@@ -99,19 +99,19 @@
 
                             <div class="mb-4">
                                 <label for="" class="mb-2">Description<span class="req">*</span></label>
-                                <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" cols="5" rows="5" placeholder="Description" disabled>{{ $detail->description }}</textarea>
+                                <textarea class=" form-control @error('description') is-invalid @enderror" name="description" id="description" cols="5" rows="5" placeholder="Description" disabled>{!! nl2br($detail->description) !!}</textarea>
                             </div>
                             <div class="mb-4">
                                 <label for="" class="mb-2">Benefits</label>
-                                <textarea class="form-control" name="benefits" id="benefits" cols="5" rows="5" placeholder="Benefits" disabled>{{ $detail->benefits }}</textarea>
+                                <textarea class="form-control" name="benefits" id="benefits" cols="5" rows="5" placeholder="Benefits" disabled>{!! nl2br($detail->benefits) !!}</textarea>
                             </div>
                             <div class="mb-4">
                                 <label for="" class="mb-2">Responsibility</label>
-                                <textarea class="form-control" name="responsibility" id="responsibility" cols="5" rows="5" placeholder="Responsibility" disabled>{{ $detail->responsibility }}</textarea>
+                                <textarea class="form-control" name="responsibility" id="responsibility" cols="5" rows="5" placeholder="Responsibility" disabled>{!! nl2br($detail->responsibility) !!}</textarea>
                             </div>
                             <div class="mb-4">
                                 <label for="" class="mb-2">Qualifications</label>
-                                <textarea class="form-control" name="qualifications" id="qualifications" cols="5" rows="5" placeholder="Qualifications" disabled>{{ $detail->qualifications }}</textarea>
+                                <textarea class="form-control" name="qualifications" id="qualifications" cols="5" rows="5" placeholder="Qualifications" disabled>{!! nl2br($detail->qualifications) !!}</textarea>
                             </div>
 
 
