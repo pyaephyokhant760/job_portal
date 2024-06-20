@@ -5,12 +5,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\jobController;
 use App\Http\Controllers\ajaxController;
 use App\Http\Controllers\HomeController;
+use App\Http\Middleware\adminMiddleware;
 use App\Http\Middleware\loginMiddleware;
+use App\Http\Controllers\ManageController;
 use App\Http\Middleware\accountMiddleware;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\SaveJobController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\JobApplicationController;
+use App\Http\Controllers\admin\DashboardController;
 
 
 Route::middleware(['login_middleware'])->group(function () {
@@ -23,6 +26,8 @@ Route::redirect('/', 'home');
 Route::get('home',[HomeController::class,'homePage'])->name('homePage');
 Route::get('jobs',[jobController::class,'jobPage'])->name('jobPage');
 Route::get('detail/{id}',[jobController::class,'detailPage'])->name('detailPage');
+Route::get('manage',[ManageController::class,'managePage'])->name('managePage');
+
 
 Route::prefix('ajax')->group(function() {
     Route::get('sorting',[ajaxController::class,'sortingPage'])->name('sortingPage');
@@ -30,6 +35,13 @@ Route::prefix('ajax')->group(function() {
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])->group(function () {
 
+    // Admin
+    Route::group(['prefix' => 'admin','middleware' => 'adminMiddleware'],function() {
+        Route::get('dashboard',[DashboardController::class,'dashboardPage'])->name('dashboardPage');
+        Route::get('users',[DashboardController::class,'userPage'])->name('userPage');
+    });
+
+    // user
     Route::middleware([accountMiddleware::class])->group(function() {
         Route::get('profile',[AccountController::class,'profilePage'])->name('profilePage');
         Route::post('getProfile',[AccountController::class,'getProfilePage'])->name('getProfilePage');
@@ -57,5 +69,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
         Route::get('detail/page',[JobApplicationController::class,'ajaxDetailPage'])->name('ajaxDetailPage');
         Route::get('save/job',[SaveJobController::class,'saveJobPage'])->name('saveJobPage');
     });
+
 });
 

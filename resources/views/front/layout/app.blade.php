@@ -37,7 +37,10 @@
                     <a class="btn btn-outline-primary me-2" href="{{ route('accountLoginPage')}}" type="submit">Login</a>
                     <a class="btn btn-outline-primary me-2" href="{{ route('accountRegisterPage')}}" type="submit">Register</a>
                 @else
-                <a class="btn btn-outline-primary me-2" href="{{ route('profilePage')}}" type="submit">{{ Auth::user()->name}}</a>
+                    <a class="btn btn-outline-primary me-2" href="{{ route('profilePage')}}" type="submit">{{ Auth::user()->name}}</a>
+                    @if (Auth::user()->role == 'admin')
+                        <a class="btn btn-outline-primary me-2" href="{{ route('dashboardPage')}}" type="submit">Dashboard</a>
+                    @endif
                 @endguest
 				<a class="btn btn-primary" href="{{ route('jobPostPage')}}" type="submit">Post a Job</a>
 			</div>

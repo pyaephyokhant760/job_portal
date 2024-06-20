@@ -37,8 +37,8 @@
                     <a class="btn btn-outline-primary me-2" href="{{ route('accountLoginPage')}}" type="submit">Login</a>
                     <a class="btn btn-outline-primary me-2" href="{{ route('accountRegisterPage')}}" type="submit">Register</a>
                 @else
-                <a class="btn btn-outline-primary me-2" href="{{ route('profilePage')}}" type="submit">{{ Auth::user()->name}}</a>
-                @if (Auth::user()->role == 'admin')
+                    <a class="btn btn-outline-primary me-2" href="{{ route('profilePage')}}" type="submit">{{ Auth::user()->name}}</a>
+                    @if (Auth::user()->role == 'admin')
                         <a class="btn btn-outline-primary me-2" href="{{ route('dashboardPage')}}" type="submit">Dashboard</a>
                     @endif
                 @endguest
@@ -47,9 +47,8 @@
 		</div>
 	</nav>
 </header>
+@yield('main')
 
-
-@yield('contact')
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -59,10 +58,10 @@
         <h5 class="modal-title pb-0" id="exampleModalLabel">Change Profile Picture</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      {{-- <div class="modal-body">
         <form action="{{ route('getPhotoPage')}}" method="post" enctype="multipart/form-data">
             @csrf
-            {{-- <input type="hidden" name="id" value="{{ Auth::user()->id }}"> --}}
+            <input type="hidden" name="id" value="{{ Auth::user()->id }}">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Profile Image</label>
                 <input type="file" class="form-control" id="image"  name="image">
@@ -73,7 +72,7 @@
             </div>
 
         </form>
-      </div>
+      </div> --}}
     </div>
   </div>
 </div>
@@ -97,8 +96,9 @@
 {{-- Trumbowyg Link --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/trumbowyg.min.js" integrity="sha512-YJgZG+6o3xSc0k5wv774GS+W1gx0vuSI/kr0E0UylL/Qg/noNspPtYwHPN9q6n59CTR/uhgXfjDXLTRI+uIryg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script>
-    $('.textarea').trumbowyg();
-</script>
+
 </body>
+
+@yield('scriptSection')
+
 </html>

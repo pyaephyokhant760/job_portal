@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class accountMiddleware
+class adminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -20,11 +20,10 @@ class accountMiddleware
             if (url()->current() === route('accountLoginPage') || url()->current() === route('accountRegisterPage')) {
                 return back();
             }
-            // if(Auth::user()->role == 'admin') {
-            //     return abort(404);
-            // }
+            if(Auth::user()->role == 'user') {
+                return abort(404);
+            }
         }
-
         return $next($request);
     }
 }
