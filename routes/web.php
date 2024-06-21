@@ -39,6 +39,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     Route::group(['prefix' => 'admin','middleware' => 'adminMiddleware'],function() {
         Route::get('dashboard',[DashboardController::class,'dashboardPage'])->name('dashboardPage');
         Route::get('users',[DashboardController::class,'userPage'])->name('userPage');
+        Route::get('user/edit/{id}',[DashboardController::class,'userEditPage'])->name('userEditPage');
+        Route::post('user/getData/{id}',[DashboardController::class,'userGetData'])->name('userGetData');
+        Route::get('user/delete/{id}',[DashboardController::class,'userDeletePage'])->name('userDeletePage');
     });
 
     // user

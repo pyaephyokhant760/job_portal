@@ -70,8 +70,10 @@
                                                             <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                                         </a>
                                                         <ul class="dropdown-menu dropdown-menu-end">
-                                                            <li><a class="dropdown-item" href=""><i class="fa fa-edit" aria-hidden="true"></i> Edit</a></li>
-                                                            <li><a class="dropdown-item delete" href=""><i class="fa fa-trash" aria-hidden="true"></i> Remove</a></li>
+                                                            <li><a class="dropdown-item" href="{{ route('userEditPage',$user->id)}}"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a></li>
+                                                            @if (Auth::user()->id != $user->id)
+                                                                <a class="dropdown-item delete" href="{{ route('userDeletePage',$user->id)}}"><i class="fa fa-trash" aria-hidden="true"></i> Remove</a>
+                                                            @endif
                                                         </ul>
                                                     </div>
                                                 </td>
@@ -88,5 +90,20 @@
         </div>
     </div>
 </section>
+@endsection
+
+@section('scriptSection')
+<script>
+    $(document).ready(function(){
+        $(".delete").click(function(){
+            $.ajax({
+                type : 'get',
+                url : 'http://127.0.0.1:8000/admin/user/delete/{id}',
+                dataType : 'json',
+            });
+            location.reload();
+        });
+    });
+</script>
 @endsection
 
