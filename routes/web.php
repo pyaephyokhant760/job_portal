@@ -12,6 +12,7 @@ use App\Http\Middleware\accountMiddleware;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\SaveJobController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\admin\AdminJobController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\admin\DashboardController;
 
@@ -42,6 +43,10 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
         Route::get('user/edit/{id}',[DashboardController::class,'userEditPage'])->name('userEditPage');
         Route::post('user/getData/{id}',[DashboardController::class,'userGetData'])->name('userGetData');
         Route::get('user/delete/{id}',[DashboardController::class,'userDeletePage'])->name('userDeletePage');
+        Route::get('job',[AdminJobController::class,'adminJobPage'])->name('adminJobPage');
+        Route::get('job/edit/{id}',[AdminJobController::class,'adminJobEditPage'])->name('adminJobEditPage');
+        Route::post('get/job/edit/{id}',[AdminJobController::class,'adminGetJobPage'])->name('adminGetJobPage');
+        Route::get('job/delete/{id}',[AdminJobController::class,'adminJobDeletePage'])->name('adminJobDeletePage');
     });
 
     // user

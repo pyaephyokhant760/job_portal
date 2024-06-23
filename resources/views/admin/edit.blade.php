@@ -8,6 +8,7 @@
                 <nav aria-label="breadcrumb" class=" rounded-3 p-3 mb-4">
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item"><a href="{{ route('homePage')}}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('userPage')}}">User Page</a></li>
                         <li class="breadcrumb-item active">Account Settings</li>
                     </ol>
                 </nav>
@@ -15,7 +16,6 @@
         </div>
         <div class="row">
             <div class="col-lg-3">
-
                 <div class="card account-nav border-0 shadow mb-4 mb-lg-0">
                     <div class="card-body p-0">
                         <ul class="list-group list-group-flush ">
@@ -23,7 +23,7 @@
                                 <a href="{{ route('userPage')}}">Users</a>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <a href="">Jobs</a>
+                                <a href="{{ route('adminJobPage')}}">Jobs</a>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                 <a href="">Job Applications</a>

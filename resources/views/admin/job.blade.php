@@ -42,7 +42,7 @@
                     <div class="card-body card-form">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h3 class="fs-4 mb-1">Users</h3>
+                                <h3 class="fs-4 mb-1">Jobs</h3>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -50,30 +50,35 @@
                                 <thead class="bg-light">
                                     <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Phone</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">User Name</th>
+                                        <th scope="col">Date</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="border-0">
-                                    @if ($users->isNotEmpty())
-                                        @foreach ($users as $user)
+                                    @if ($jobs->isNotEmpty())
+                                        @foreach ($jobs as $job)
                                             <tr class="active">
-                                                <td>{{ $user->id}}</td>
-                                                <td>{{ $user->name }}</td>
-                                                <td >{{ $user->email }}</td>
-                                                <td>{{ $user->phone }}</td>
+                                                <td>{{ $job->detail_id}}</td>
+                                                <td>
+                                                    <p>{{ $job->title }}</p>
+                                                    <p>0 Application</p>
+                                                </td>
+                                                <td >{{ $job->user_name }}</td>
+                                                <td>
+                                                    {{ $job->created_at->format('j/m/Y') }}
+                                                </td>
                                                 <td>
                                                     <div class="action-dots ">
                                                         <a href="#" class="" data-bs-toggle="dropdown" aria-expanded="false">
                                                             <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                                         </a>
                                                         <ul class="dropdown-menu dropdown-menu-end">
-                                                            <li><a class="dropdown-item" href="{{ route('userEditPage',$user->id)}}"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a></li>
-                                                            @if (Auth::user()->id != $user->id)
-                                                                <li><a class="dropdown-item delete" href="{{ route('userDeletePage',$user->id)}}"><i class="fa fa-trash" aria-hidden="true"></i> Remove</a></li>
-                                                            @endif
+                                                            <li><a class="dropdown-item edit" href="{{ route('adminJobEditPage',$job->id)}}"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a></li>
+
+                                                                <li><a class="dropdown-item delete" href="{{ route('adminJobDeletePage',$job->id)}}"><i class="fa fa-trash" aria-hidden="true"></i> Remove</a></li>
+
                                                         </ul>
                                                     </div>
                                                 </td>
@@ -83,7 +88,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        {{ $users->links()}}
+                        {{ $jobs->links()}}
                     </div>
                 </div>
             </div>
@@ -95,10 +100,18 @@
 @section('scriptSection')
 <script>
     $(document).ready(function(){
+        $(".edit").click(function(){
+            $.ajax({
+                type : 'post',
+                url : 'http://127.0.0.1:8000/admin/get/job/edit/{id}',
+                dataType : 'json',
+            });
+            location.reload();
+        });
         $(".delete").click(function(){
             $.ajax({
                 type : 'get',
-                url : 'http://127.0.0.1:8000/admin/user/delete/{id}',
+                url : 'http://127.0.0.1:8000/admin/job/delete/{id}',
                 dataType : 'json',
             });
             location.reload();
