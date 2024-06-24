@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('alter_jobs', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('details', function (Blueprint $table) {
+            $table->integer('status')->default(1)->after('company_website');
+            $table->integer('isFeatured')->after('status')->default(0);
         });
     }
 
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('alter_jobs');
+        //
     }
 };

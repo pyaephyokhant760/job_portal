@@ -52,6 +52,7 @@
                                         <th scope="col">ID</th>
                                         <th scope="col">Title</th>
                                         <th scope="col">User Name</th>
+                                        <th scope="col">Status</th>
                                         <th scope="col">Date</th>
                                         <th scope="col">Action</th>
                                     </tr>
@@ -66,6 +67,14 @@
                                                     <p>0 Application</p>
                                                 </td>
                                                 <td >{{ $job->user_name }}</td>
+                                                <td>
+                                                    @if ($job->status == 1)
+                                                        <div class="job-status text-capitalize">active</div>
+                                                    @else
+                                                        <div class="job-status text-danger">Block</div>
+                                                    @endif
+
+                                                </td>
                                                 <td>
                                                     {{ $job->created_at->format('j/m/Y') }}
                                                 </td>
