@@ -25,7 +25,7 @@
                                 <a href="{{ route('adminJobPage')}}">Jobs</a>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <a href="">Job Applications</a>
+                                <a href="{{ route('jobApplicationPage')}}">Job Applications</a>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                 <form action="{{ route('logout')}}" method="post">
@@ -64,7 +64,9 @@
                                                 <td>{{ $job->detail_id}}</td>
                                                 <td>
                                                     <p>{{ $job->title }}</p>
-                                                    <p>0 Application</p>
+                                                    <p>@if (Auth::user()->id == $id)
+                                                        {{ $jobApplications->count()}}
+                                                    @endif Application</p>
                                                 </td>
                                                 <td >{{ $job->user_name }}</td>
                                                 <td>

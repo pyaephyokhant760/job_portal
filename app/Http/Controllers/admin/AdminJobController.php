@@ -6,6 +6,7 @@ use App\Models\Detail;
 use App\Models\JobType;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\JobApplication;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -14,10 +15,15 @@ class AdminJobController extends Controller
 {
     //adminJobPage
     public function adminJobPage() {
+        $id = Auth::user()->id;
         $jobs = Detail::select('details.*','users.name as user_name','details.id as detail_id')
             ->rightJoin('users','details.user_id','users.id')
            ->paginate(10);
-        return view('admin.job',compact('jobs'));
+
+           $jobApplications = JobApplication::where('user_id', Auth::user()->id)->get();
+        // dd($jobApplications->toArray());
+
+        return view('admin.job',compact('jobs','jobApplications','id'));
     }
 
     // adminJobEditPage
@@ -67,7 +73,6 @@ class AdminJobController extends Controller
             'isFeatured' => (!empty($request->isFeatured) ? $request->isFeatured : 0)
         ];
     }
-
 
 
     // editVail

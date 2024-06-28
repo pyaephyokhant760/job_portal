@@ -25,7 +25,7 @@
                                 <a href="{{ route('adminJobPage')}}">Jobs</a>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <a href="{{ route('jobApplicationPage')}}">Job Applications</a>
+                                <a href="">Job Applications</a>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                 <form action="{{ route('logout')}}" method="post">
@@ -40,40 +40,54 @@
             <div class="col-lg-9">
                 <div class="card border-0 shadow mb-4">
                     <div class="card-body card-form">
+                        @if (session('Data'))
+                            <div>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>{{ session('Data') }}</strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            </div>
+                        @endif
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h3 class="fs-4 mb-1">Users</h3>
+                                <h3 class="fs-4 mb-1">Jobs</h3>
                             </div>
                         </div>
                         <div class="table-responsive">
                             <table class="table ">
                                 <thead class="bg-light">
                                     <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Phone</th>
+                                        <th scope="col">Job Title</th>
+                                        <th scope="col">User Name</th>
+                                        <th scope="col">Employer</th>
+                                        <th scope="col">Date</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="border-0">
-                                    @if ($users->isNotEmpty())
-                                        @foreach ($users as $user)
+                                    @if ($jobApplications->isNotEmpty())
+                                        @foreach ($jobApplications as $jobApplication)
                                             <tr class="active">
-                                                <td>{{ $user->id}}</td>
-                                                <td>{{ $user->name }}</td>
-                                                <td >{{ $user->email }}</td>
-                                                <td>{{ $user->phone }}</td>
+                                                <td>{{ $jobApplication->detail_name}}</td>
+                                                <td >{{ $jobApplication->applicant_name }}</td>
+                                                <td>
+                                                    {{ $jobApplication->employer_name}}
+
+                                                </td>
+                                                <td>
+                                                    {{ $jobApplication->created_at->format('j/m/Y') }}
+                                                </td>
                                                 <td>
                                                     <div class="action-dots ">
                                                         <a href="#" class="" data-bs-toggle="dropdown" aria-expanded="false">
                                                             <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                                         </a>
                                                         <ul class="dropdown-menu dropdown-menu-end">
-                                                            <li><a class="dropdown-item" href="{{ route('userEditPage',$user->id)}}"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a></li>
-                                                            @if (Auth::user()->id != $user->id)
-                                                                <li><a class="dropdown-item delete" href="{{ route('userDeletePage',$user->id)}}"><i class="fa fa-trash" aria-hidden="true"></i> Remove</a></li>
-                                                            @endif
+
+
+                                                                <li><a class="dropdown-item delete" href="{{ route('deleteJobApplicationPage',$jobApplication->id)}}"><i class="fa fa-trash" aria-hidden="true"></i> Remove</a></li>
+
                                                         </ul>
                                                     </div>
                                                 </td>
@@ -83,7 +97,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        {{ $users->links()}}
+                        {{ $jobApplications->links()}}
                     </div>
                 </div>
             </div>
@@ -98,7 +112,7 @@
         $(".delete").click(function(){
             $.ajax({
                 type : 'get',
-                url : 'http://127.0.0.1:8000/admin/user/delete/{id}',
+                url : 'http://127.0.0.1:8000/admin/jobApplication/delete/{id}',
                 dataType : 'json',
             });
             location.reload();
@@ -106,4 +120,3 @@
     });
 </script>
 @endsection
-
